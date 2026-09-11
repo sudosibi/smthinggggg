@@ -1,24 +1,19 @@
-# ---------- Stage 1: Install Consumet ----------
-FROM node:20-slim AS consumet-builder
-
-WORKDIR /consumet
-COPY package.json ./
-RUN npm install --omit=dev
+# ---------- Stage 1: Pull official Consumet image ----------
+FROM riimuru/consumet-api:latest AS consumet
 
 # ---------- Stage 2: Final Image ----------
 FROM python:3.11-slim
 
-# Install Node.js, curl, git
+# Install curl + Node.js (for Consumet binary)
 RUN apt-get update && apt-get install -y \
     curl \
-    git \
     ca-certificates \
     && curl -fsSL https://deb.nodesource.com/setup_20.x | bash - \
     && apt-get install -y nodejs \
     && rm -rf /var/lib/apt/lists/*
 
-# Copy Consumet from builder stage
-COPY --from=consumet-builder /consumet /app/consumet
+# Copy Consumet app from official image
+COPY --from=consumet /app /app/consumet
 
 WORKDIR /app
 
@@ -33,6 +28,7 @@ RUN chmod +x start.sh
 
 # Railway provides $PORT at runtime
 ENV PORT=8080
+ENV NODE_ENV=PROD
 EXPOSE 8080
 
 # Run both services via start script
