@@ -5,7 +5,7 @@ echo "🍟♤ ｐ𝓞т𝐀tᵒ 🐟🎁 Anime API starting..."
 
 # Start Consumet in the background
 echo "[+] Starting Consumet on port 3000..."
-node /app/consumet/node_modules/@consumet/api.consumet.org/dist/index.js &
+node /app/consumet/dist/index.js &
 CONSUMET_PID=$!
 
 # Wait for Consumet to be ready
