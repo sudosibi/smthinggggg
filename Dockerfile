@@ -12,8 +12,8 @@ RUN apt-get update && apt-get install -y \
     && apt-get install -y nodejs \
     && rm -rf /var/lib/apt/lists/*
 
-# Copy Consumet app from official image
-COPY --from=consumet /app /app/consumet
+# Copy Consumet app from official image (correct path!)
+COPY --from=consumet /home/node/app /app/consumet
 
 WORKDIR /app
 
