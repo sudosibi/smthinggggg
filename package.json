@@ -1,0 +1,8 @@
+{
+  "name": "consumet-api-local",
+  "version": "1.0.0",
+  "private": true,
+  "dependencies": {
+    "@consumet/api.consumet.org": "latest"
+  }
+}
